@@ -62,12 +62,14 @@ public:
 		    if(full_eat()==false){
 		        if (count == 1) {
 		            current->next = cus;
+				    cus->prev = current;
 				    current->prev = cus;
+				    cus->next = current;
 				    current = cus;
 				    count++;
 			    }else{
 				    current->next->prev = cus;
-				    cus->next = current->next;
+				    cus->next = current->prev;
 				    cus->prev = current;
 				    current->next = cus;
 				    current = cus;
@@ -78,15 +80,17 @@ public:
 		void sit_at_left(customer* cus) {
 		    if(full_eat()==false){
 		        if (count == 1) {
-		            current->next = cus;
 				    current->prev = cus;
+				    cus->next = current;
+				    current->next = cus;
+				    cus->prev = current;
 				    current = cus;
 				    count++;
 			    }else{
-				    current->prev->next = cus;
-				    cus->prev = current->prev;
+				    current->next->next = cus;
+				    cus->prev = current->next;
 				    cus->next = current;
-	                current->prev = cus;
+				    current->prev = cus;
 				    current = cus;
 				    count++;
 			    }
@@ -139,6 +143,7 @@ public:
 			}
 			customer *cus = new customer (name, energy, nullptr, nullptr);
 			if (list.count == 0) {
+			    number--;
 				list.anywhere(cus);
 			}
 			else if (list.count >= number / 2 && list.count <= number) {
@@ -159,24 +164,29 @@ public:
 				RES = energy - ans->energy;
 				//Nếu chênh lệch sức mạnh nhiều nhất là số dương thì ngồi phải
 				if (RES > 0) {
+				    number--;
 					list.sit_at_right(cus);
 				}
 				//Ngược lại
 				else {
+				    number--;
 					list.sit_at_left(cus);
 				}
 			}
 			else if (list.count < number / 2 && list.count > 0) {
 				if (list.count == 0) {
+				    number--;
 					list.anywhere(cus);
 				}
 				else {
 					//Nếu energy của khách mới lớn hơn hoặc bằng thì ngồi bên phải người vào trước đó
 					if (energy >= list.current->energy) {
+					    number--;
 						list.sit_at_right(cus);
 					}
 					//Và ngược lại
 					else {
+					    number--;
 						list.sit_at_left(cus);
 					}
 				}
