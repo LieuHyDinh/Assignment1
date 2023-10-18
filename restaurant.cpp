@@ -139,7 +139,6 @@ public:
 			}
 			customer *cus = new customer (name, energy, nullptr, nullptr);
 			if (list.count == 0) {
-			    number--;
 				list.anywhere(cus);
 			}
 			else if (list.count >= number / 2 && list.count <= number) {
@@ -160,29 +159,24 @@ public:
 				RES = energy - ans->energy;
 				//Nếu chênh lệch sức mạnh nhiều nhất là số dương thì ngồi phải
 				if (RES > 0) {
-				    number--;
 					list.sit_at_right(cus);
 				}
 				//Ngược lại
 				else {
-				    number--;
 					list.sit_at_left(cus);
 				}
 			}
 			else if (list.count < number / 2 && list.count > 0) {
 				if (list.count == 0) {
-				    number--;
 					list.anywhere(cus);
 				}
 				else {
 					//Nếu energy của khách mới lớn hơn hoặc bằng thì ngồi bên phải người vào trước đó
 					if (energy >= list.current->energy) {
-					    number--;
 						list.sit_at_right(cus);
 					}
 					//Và ngược lại
 					else {
-					    number--;
 						list.sit_at_left(cus);
 					}
 				}
